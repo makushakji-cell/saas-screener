@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Software screener — AppFolio and peers</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <h1>Software screener</h1>
+  <p class="lede">
+    AppFolio and 21 comparable software companies. Each one is valued off what
+    the group pays for growth, then rated against how the market feels about it.
+    Click a company to see the working; click its ticker for SEC filings.
+  </p>
+
+  <div class="meta">
+    <span id="status">loading…</span>
+    <button id="refresh">Refresh</button>
+    <a href="/api/export.csv" download>CSV</a>
+  </div>
+
+  <div id="error"></div>
+
+  <table id="tbl">
+    <thead id="thead"></thead>
+    <tbody id="tbody"><tr><td class="loading">loading…</td></tr></tbody>
+  </table>
+
+  <p class="foot">
+    Prices, earnings and analyst ratings from Yahoo Finance; filings and company
+    identifiers from SEC EDGAR. Fair value is a comparison against these 21 peers,
+    not a forecast — roughly half the group sits on either side of it by design.
+    <strong>Not investment advice.</strong>
+  </p>
+</main>
+<div class="tooltip" id="tip"></div>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,259 @@
+/* Palette roles from the validated reference instance. Light and dark are
+   each selected, not flipped. */
+:root {
+  color-scheme: light;
+  --surface:   #fcfcfb;
+  --plane:     #f9f9f7;
+  --ink-1:     #0b0b0b;
+  --ink-2:     #52514e;
+  --ink-muted: #898781;
+  --grid:      #e1e0d9;
+  --axis:      #c3c2b7;
+  --border:    rgba(11, 11, 11, 0.10);
+  --wash:      rgba(11, 11, 11, 0.035);
+  --accent:    #2a78d6;
+  --good:      #0ca30c;
+  --warning:   #fab219;
+  --critical:  #d03b3b;
+  --up:        #006300;
+  --down:      #b02f2f;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --surface:   #1a1a19;
+    --plane:     #0d0d0d;
+    --ink-1:     #ffffff;
+    --ink-2:     #c3c2b7;
+    --ink-muted: #898781;
+    --grid:      #2c2c2a;
+    --axis:      #383835;
+    --border:    rgba(255, 255, 255, 0.10);
+    --wash:      rgba(255, 255, 255, 0.05);
+    --accent:    #3987e5;
+    --up:        #0ca30c;
+    --down:      #e66767;
+  }
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  background: var(--plane);
+  color: var(--ink-1);
+  font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+main { max-width: 1260px; margin: 0 auto; padding: 44px 24px 70px; }
+
+h1 { font-size: 21px; margin: 0 0 7px; letter-spacing: -0.015em; }
+.lede { margin: 0 0 20px; color: var(--ink-2); font-size: 13.5px; max-width: 620px; }
+
+.equation {
+  font-size: 13px; color: var(--ink-2); margin: 0 0 20px;
+  padding: 11px 14px; background: var(--surface);
+  border: 1px solid var(--border); border-radius: 9px;
+  max-width: 620px; line-height: 1.6;
+}
+.equation b { color: var(--ink-1); font-variant-numeric: tabular-nums; }
+.equation .r2 { color: var(--ink-muted); font-size: 11.5px; }
+
+.meta {
+  display: flex; align-items: center; gap: 13px;
+  font-size: 12px; color: var(--ink-muted);
+  padding-bottom: 9px; border-bottom: 1px solid var(--border);
+}
+.meta .spacer { flex: 1; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+button {
+  font: inherit; font-size: 12px; color: var(--ink-2);
+  background: none; border: 0; padding: 0; cursor: pointer;
+  text-decoration: underline; text-underline-offset: 2px;
+}
+button:hover { color: var(--ink-1); }
+button:disabled { opacity: 0.45; cursor: default; }
+
+/* ------------------------------- the list ------------------------------- */
+table { border-collapse: collapse; width: 100%; }
+
+thead th {
+  text-align: right; padding: 13px 0 7px 12px; white-space: nowrap;
+  font-size: 10.5px; font-weight: 600; color: var(--ink-muted);
+  text-transform: uppercase; letter-spacing: 0.05em;
+  cursor: pointer; user-select: none;
+}
+thead th:first-child { text-align: left; padding-left: 0; }
+thead th:hover { color: var(--ink-1); }
+thead th.sorted { color: var(--ink-1); }
+thead th .arrow { font-size: 8px; opacity: 0.5; margin-left: 2px; }
+thead th.sorted .arrow { opacity: 1; }
+
+tbody td {
+  padding: 11px 0 11px 12px; text-align: right; white-space: nowrap;
+  border-top: 1px solid var(--grid); font-variant-numeric: tabular-nums;
+}
+tbody td:first-child { text-align: left; width: 100%; padding-left: 0; }
+tbody tr.co { cursor: pointer; }
+tbody tr.co:hover td { background: var(--wash); }
+tbody tr.open td { background: var(--wash); }
+tbody tr.subject td:first-child { box-shadow: inset 3px 0 0 -1px var(--accent); padding-left: 9px; }
+td.loading { padding: 40px 0; text-align: center; color: var(--ink-muted); border: 0; }
+
+.tk { font-weight: 700; font-size: 14px; }
+.nm { color: var(--ink-2); font-size: 12px; margin-left: 7px; }
+.sec { margin-left: 7px; display: inline-flex; gap: 4px; }
+.sec a {
+  font-size: 9.5px; font-weight: 600; color: var(--ink-muted);
+  border: 1px solid var(--border); border-radius: 4px; padding: 1px 4px;
+}
+.sec a:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+
+/* rating: icon + word, never colour alone */
+.badge { font-size: 11px; font-weight: 700; letter-spacing: 0.04em; }
+.badge .ic { font-size: 8.5px; margin-right: 3px; }
+.badge.BUY  { color: var(--up); }
+.badge.HOLD { color: var(--ink-2); }
+.badge.SELL { color: var(--down); }
+.badge.NR   { color: var(--ink-muted); font-weight: 400; }
+.mix { display: inline-flex; gap: 3px; align-items: center; margin-left: 6px; vertical-align: 1px; }
+.mix i { display: block; width: 14px; height: 4px; border-radius: 2px; background: var(--grid); }
+.mix i.on { background: var(--accent); }
+.up { color: var(--up); } .down { color: var(--down); } .mut { color: var(--ink-muted); }
+.flag { color: var(--ink-muted); font-size: 11px; margin-left: 5px; cursor: help; vertical-align: 1px; }
+
+/* ------------------------------- detail -------------------------------- */
+/* The row cells set white-space: nowrap so numbers never wrap mid-column.
+   The drawer is prose and must not inherit that, or its paragraphs overflow
+   their grid cells and collide with the column beside them. */
+tr.detail td { padding: 0 0 22px !important; border-top: 0; white-space: normal; }
+.dwrap { padding: 4px 0 0; }
+.dgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); gap: 22px 30px; }
+.dsec h4 {
+  font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.05em;
+  color: var(--ink-muted); margin: 0 0 8px; font-weight: 600;
+}
+.row { display: flex; justify-content: space-between; gap: 12px; padding: 3px 0; font-size: 12.5px; }
+.row .v { white-space: nowrap; }
+.row .k { color: var(--ink-2); }
+.row .v { font-variant-numeric: tabular-nums; font-weight: 500; }
+.row.tot { border-top: 1px solid var(--grid); margin-top: 5px; padding-top: 7px; font-weight: 600; }
+.why { font-size: 11px; color: var(--ink-muted); line-height: 1.5; margin: 1px 0 7px; }
+
+.bar { display: grid; grid-template-columns: 80px 1fr 26px; gap: 8px; align-items: center; padding: 3px 0; font-size: 11.5px; }
+.bar .n { color: var(--ink-2); }
+.bar .t { height: 6px; border-radius: 3px; background: var(--grid); overflow: hidden; }
+.bar .t > i { display: block; height: 100%; border-radius: 3px; background: var(--accent); }
+.bar .v { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-2); }
+
+.flags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 9px; }
+.flags span {
+  font-size: 10px; color: var(--ink-2); background: var(--wash);
+  border: 1px solid var(--border); border-radius: 4px; padding: 1px 5px;
+}
+.filing { display: flex; justify-content: space-between; gap: 10px; font-size: 12px; padding: 3px 0; }
+.filing .d { color: var(--ink-muted); font-variant-numeric: tabular-nums; }
+
+.foot {
+  margin-top: 30px; padding-top: 14px; border-top: 1px solid var(--border);
+  font-size: 11.5px; color: var(--ink-muted); line-height: 1.7; max-width: 660px;
+}
+.foot strong { color: var(--ink-2); }
+.err {
+  background: color-mix(in srgb, var(--critical) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--critical) 38%, transparent);
+  color: var(--down); padding: 10px 13px; border-radius: 8px; margin: 14px 0; font-size: 12.5px;
+}
+
+.tooltip {
+  position: fixed; z-index: 50; pointer-events: none; opacity: 0;
+  transition: opacity 90ms ease; max-width: 290px;
+  background: var(--surface); color: var(--ink-1);
+  border: 1px solid var(--border); border-radius: 8px;
+  padding: 8px 10px; font-size: 11.5px; line-height: 1.5;
+  box-shadow: 0 6px 22px rgba(0,0,0,0.17);
+}
+.tooltip.on { opacity: 1; }
+
+/* Narrow screens: shed the name, the filing chips, then the two columns that
+   matter least, rather than forcing a sideways scroll. */
+/* Eleven columns. Column order is:
+   1 Company  2 Size  3 Price  4 EPS  5 P/E  6 vs group  7 Growth
+   8 Op margin  9 P/S  10 Analyst target  11 Rating
+   As the window narrows, shed the least essential first and keep the three
+   comparison columns (vs group, Growth, Op margin) as long as possible. */
+/* Scoped with the child combinator on purpose. An unscoped
+   `thead th:nth-child(2)` also matches the comparison table nested inside an
+   expanded row, which silently collapsed that table's first value column. */
+@media (max-width: 1250px) {
+  #tbl > thead > tr > th:nth-child(2),
+  #tbl > tbody > tr > td:nth-child(2) { display: none; }   /* Size */
+}
+@media (max-width: 1100px) {
+  #tbl > thead > tr > th:nth-child(4),
+  #tbl > tbody > tr > td:nth-child(4) { display: none; }   /* EPS */
+}
+@media (max-width: 950px) {
+  .nm { display: none; }
+  #tbl > thead > tr > th:nth-child(9),
+  #tbl > tbody > tr > td:nth-child(9) { display: none; }   /* P/S */
+}
+@media (max-width: 700px) {
+  main { padding: 28px 16px 50px; }
+  .sec { display: none; }
+  thead th:nth-child(4), tbody td:nth-child(4) { display: none; }  /* EPS */
+}
+
+/* the worked arithmetic in the drawer */
+.calc { font-size: 12.5px; }
+.cline { display: flex; justify-content: space-between; gap: 12px; padding: 3px 0; }
+.cline span { color: var(--ink-2); }
+.cline b { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.cline.tot { border-top: 1px solid var(--axis); margin-top: 4px; padding-top: 6px; }
+.cline.res { margin-top: 6px; }
+.cline.res b { font-size: 13px; }
+
+/* analyst vote distribution */
+.votebar { display: flex; height: 22px; border-radius: 5px; overflow: hidden; gap: 2px; margin: 2px 0 8px; }
+.votebar > i { display: block; height: 100%; }
+.votelist { display: flex; flex-wrap: wrap; gap: 4px 13px; font-size: 12px; color: var(--ink-2); }
+.votelist span { display: inline-flex; align-items: center; gap: 5px; }
+.votelist b { font-size: 13px; color: var(--ink-1); font-variant-numeric: tabular-nums; }
+.votelist i { width: 8px; height: 8px; border-radius: 2px; flex: none; }
+
+/* an executive quote, always from a filed document */
+.quote { margin: 4px 0 0; padding: 0 0 0 13px; border-left: 2px solid var(--accent); }
+.quote p { margin: 0; font-size: 12.5px; line-height: 1.55; color: var(--ink-1); }
+.quote p::before { content: "\201c"; }
+.quote p::after  { content: "\201d"; }
+.quote footer { margin-top: 7px; font-size: 11.5px; display: flex; flex-wrap: wrap; gap: 3px 8px; align-items: baseline; }
+.quote footer b { color: var(--ink-1); }
+.quote footer span { color: var(--ink-muted); }
+.quote footer a { color: var(--ink-muted); text-decoration: underline; text-underline-offset: 2px; }
+.quote footer a:hover { color: var(--accent); }
+
+/* side-by-side comparison against the group */
+/* Fixed layout on purpose: with automatic layout the label column claimed all
+   the slack and squeezed the company's own values to zero width. */
+table.cmp { width: 100%; border-collapse: collapse; font-size: 12.5px; table-layout: fixed; }
+table.cmp th:first-child, table.cmp td:first-child { width: 44%; }
+table.cmp th:nth-child(2), table.cmp td:nth-child(2),
+table.cmp th:nth-child(3), table.cmp td:nth-child(3) { width: 28%; }
+table.cmp th {
+  text-align: right; font-size: 10px; font-weight: 600; color: var(--ink-muted);
+  text-transform: uppercase; letter-spacing: 0.04em;
+  padding: 0 0 6px 10px; border-bottom: 1px solid var(--grid); white-space: nowrap;
+}
+table.cmp th:first-child { text-align: left; }
+table.cmp td {
+  padding: 5px 0 5px 10px; text-align: right;
+  font-variant-numeric: tabular-nums; white-space: nowrap;
+  border-bottom: 1px solid var(--grid);
+}
+table.cmp tr:last-child td { border-bottom: 0; }
+table.cmp td:first-child { text-align: left; color: var(--ink-2);
+  font-variant-numeric: normal; white-space: normal; }
+table.cmp td.me { font-weight: 600; }
+table.cmp td.them { color: var(--ink-muted); }

@@ -1,0 +1,15 @@
+# The virtual environment is 93MB and rebuildable from requirements.txt.
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+
+# Rebuildable artefacts. `python -m saasscreener.build` recreates all of this
+# from the two public APIs in about 40 seconds.
+data/cache/
+data/*.db
+data/company_tickers.json
+
+# NOT ignored: data/snapshots.csv. That is the accumulated record of what the
+# model said and when, it cannot be recreated, and it is the one file here
+# genuinely worth keeping.
