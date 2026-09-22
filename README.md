@@ -121,6 +121,20 @@ on sentiment alone because the company is not profitable.
 
 ## Using it
 
+### Opening it
+
+Double-click **Open Screener** on the Desktop. It starts the server, waits for
+it to answer, and opens the page. Leave the Terminal window it opens alone —
+closing that window stops the server. Double-clicking it again when it is
+already running just reopens the page rather than failing on the port.
+
+**Refresh Data** does a full rebuild and records a dated snapshot. Worth running
+weekly; that history is what lets `query track` eventually say whether the
+ratings were any good.
+
+Both live in `launchers/` and are copied to the Desktop. They resolve the
+project as `$HOME/saas-screener` — edit the `PROJECT` line if you move it.
+
 ### Web app
 
 ```bash
@@ -212,6 +226,7 @@ serialised below the published 10 req/s ceiling. Change the contact address in
 ## Layout
 
 ```
+launchers/       double-clickable Open Screener / Refresh Data
 saasscreener/
   config.py      universe, weights, curves and bounds — each with its reasoning
   edgar.py       SEC: CIK resolution, filing index, XBRL company facts (stdlib only)
