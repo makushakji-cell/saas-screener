@@ -2,7 +2,16 @@
 # Double-click this to start the screener and open it in your browser.
 # Closing this window, or pressing Ctrl-C in it, stops the server.
 
-PROJECT="$HOME/saas-screener"
+# Resolve the project: if this script sits inside it (launchers/), use that.
+# Otherwise fall back to the usual location -- the Desktop copies land here.
+HERE="$(cd "$(dirname "$0")" && pwd)"
+if [ -d "$HERE/../saasscreener" ]; then
+  PROJECT="$(cd "$HERE/.." && pwd)"
+elif [ -d "$HERE/saasscreener" ]; then
+  PROJECT="$HERE"
+else
+  PROJECT="$HOME/saas-screener"
+fi
 PORT=8899
 URL="http://127.0.0.1:$PORT"
 

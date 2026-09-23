@@ -9,6 +9,25 @@ cd ~/saas-screener
 ./.venv/bin/python -m saasscreener.server        # opens http://127.0.0.1:8899
 ```
 
+## Setting it up
+
+Needs Python 3.9 or newer. Nothing else — no Node, no database server, no API
+keys. Both data sources are public and unauthenticated.
+
+```bash
+git clone https://github.com/makushakji-cell/saas-screener.git
+cd saas-screener
+python3 -m venv .venv
+./.venv/bin/pip install -r requirements.txt
+./.venv/bin/python -m saasscreener.build     # fetches everything, ~30 seconds
+./.venv/bin/python -m saasscreener.server    # then open http://127.0.0.1:8899
+```
+
+The repository deliberately ships no virtual environment and no database —
+`build` recreates both from SEC EDGAR and Yahoo Finance. The one file that is
+committed and cannot be regenerated is `data/snapshots.csv`, the dated record of
+what the model has said; `build` reloads it so a fresh clone keeps the history.
+
 Current build: **22 companies, 21 scored on value** (SmartRent is neither
 profitable nor growing, so it has no P/E to compare), all 22 matched to an SEC
 CIK, 20 with a sourced executive quote.

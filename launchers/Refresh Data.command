@@ -4,7 +4,16 @@
 # `query track` able to tell you later whether the ratings were any good.
 # Worth running about once a week.
 
-PROJECT="$HOME/saas-screener"
+# Resolve the project: if this script sits inside it (launchers/), use that.
+# Otherwise fall back to the usual location -- the Desktop copies land here.
+HERE="$(cd "$(dirname "$0")" && pwd)"
+if [ -d "$HERE/../saasscreener" ]; then
+  PROJECT="$(cd "$HERE/.." && pwd)"
+elif [ -d "$HERE/saasscreener" ]; then
+  PROJECT="$HERE"
+else
+  PROJECT="$HOME/saas-screener"
+fi
 cd "$PROJECT" 2>/dev/null || {
   echo "Could not find the project at $PROJECT"
   echo; read -n 1 -s -r -p "Press any key to close."; exit 1
