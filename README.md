@@ -222,6 +222,28 @@ ORDER BY peg ASC;
 
 ---
 
+## Publishing it
+
+The interactive app needs the local Python server, which makes it useless as a
+link someone else can open. `publish` writes the whole thing out as static
+files instead:
+
+```bash
+./.venv/bin/python -m saasscreener.build      # fresh data first
+./.venv/bin/python -m saasscreener.publish    # -> docs/
+git add -A && git commit -m "Publish" && git push
+```
+
+Then in the repository: **Settings → Pages → Source: main, folder /docs**. The
+site appears at `https://<user>.github.io/saas-screener` within a minute or two.
+
+The published copy is the same HTML, CSS and JavaScript with the data baked
+into `docs/data.json`. The app tries its API first and falls back to that file,
+so one codebase serves both versions. The static copy hides the refresh button
+and states the date its data was captured instead of implying it is live.
+
+To update what visitors see, re-run those three commands.
+
 ## Rebuilding
 
 ```bash
